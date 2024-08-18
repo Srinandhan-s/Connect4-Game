@@ -1,0 +1,541 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:500,700');
+
+/*
+Farbvariablen die über js geändert werden
+*/
+
+:root{
+    --primary-color:#3E61AC;
+    --secondary-color:#e63946;
+    --background-color:#ffffff;
+    --sec-background-color:#333;
+    --hover-color:#222;
+}
+
+/*
+Schriftart wird geändert + man kann nicht scrollen
+*/
+
+html{
+    overflow: hidden;
+    font-family: 'Roboto', serif;
+}
+
+/*
+Da Browser andere deaufult margin und paddings haben wird hier eine standard größe festgelegt von 0
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+}
+/*
+_________________________________________________________________________NAV BAR____________________________________________________________________________
+*/
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--sec-background-color);
+  }
+.navbar-buttons{
+    float: right;
+}
+.navbar-buttons a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 30px;
+    text-decoration: none;
+  }
+  
+.navbar-buttons:hover{
+    background-color:var(--hover-color);
+    transition: all 200ms;
+  }
+
+.navbar-active{
+    background-color: var(--primary-color);
+}
+
+/*
+Navbar Logo
+*/
+
+.logo{
+    float: left;
+    padding: 0;
+    font-size:120%;
+    font-family:'Quicksand';
+}
+.logo :hover{
+    animation: 3s special ease-in-out infinite;
+}
+.logo span{
+    color:var(--secondary-color);
+    font-size:170%;
+    margin: 4px;
+}
+.logo a{
+    display: block;
+    color: white;
+    text-align: center;
+    margin-left:20px ;
+    padding: 0.5rem;
+    text-decoration: none;
+}
+
+/*
+______________________________________________________________________GAME CONTAINER DESIGN_____________________________________________________________________________
+*/
+
+#game{
+    position: relative;
+    margin: auto;
+    margin-top: 30px;
+    padding: 1.25rem;
+    width: 55rem;
+    height: 47rem;
+    background-color: var(--background-color);
+    border-radius: 5%;
+    box-shadow: 0 0 100px -30px var(--sec-background-color);
+}
+
+/*
+Game grid wird bearbeitet
+*/
+
+.game-container{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    column-gap: 1rem;
+    row-gap: 2rem;
+}
+
+/*
+unsichtbare Knöpfe um Coins zu plazieren
+*/
+
+.hidden-buttons{
+    position: absolute;
+    z-index: 1;
+
+    width: 57.5rem;
+    height: 49.5rem;
+    border-radius: 5%;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+}
+.hidden-button{
+    height:100%;
+    width:100%;
+    z-index: 2;
+}
+
+/*
+wenn man über eine Zeile hovert wird die entsprechende Zeile grau
+*/
+
+.hidden-button:hover{
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.11);
+    transition:all 2s;
+}
+
+/*
+_______________________________________________________________________BACKGROUND DESIGN_________________________________________________________________________________________
+*/
+
+
+body{
+    background-color: var(--background-color);
+}
+.main-bg{
+    background: -webkit-linear-gradient(150deg, var(--primary-color) 60%, var(--secondary-color) 60%);
+    animation: colorChange 3.7s infinite;
+}
+
+/*
+Farbe entspricht den nexten spieler der dran ist,wird in js verändert um jeweils die Farbe des ersten oder 2 Spielers als BG zu haben
+*/
+.player1-section{
+    background: -webkit-linear-gradient(90deg, var(--primary-color) 60%, var(--background-color) 60%);
+    height:700px ; 
+}
+.player2-section{
+    background: -webkit-linear-gradient(90deg, var(--secondary-color) 60%, var(--background-color) 60%);
+    height:700px ;
+}
+
+.puffer{
+    margin-top:40rem ;
+}
+
+/*
+____________________________________________________________________________COIN_______________________________________________________________________________________________
+*/
+
+/*
+design der beiden Coin farben + animation mit dem fallen
+*/
+
+.red{
+    transform: translateY(-700px);
+    background-color: var(--secondary-color);
+    animation: drop 1.5s ease forwards;
+    box-shadow: 0 8px 10px -4px var(--sec-background-color);
+}
+
+.blue{
+    transform: translateY(-700px);
+    background-color: var(--primary-color);
+    animation: drop 1.5s ease forwards;
+    box-shadow: 0 8px 10px -4px var(--sec-background-color);
+}
+.coin{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin: auto;
+}
+
+
+/*
+__________________________________________________________________________COLOR CONTAINER____________________________________________________________________________
+*/
+
+
+.container-colors{
+    bottom: -2rem;
+    position: fixed;
+    background-color: transparent;
+    width: 100%;
+}
+
+/*
+Box welche die ganze Farbauswahl beider Spieler in sich hat
+*/
+
+.container{
+    margin: auto;
+    width: 55rem;
+    height: 7rem;
+    box-shadow: 0 0 300px -30px #555;
+    border-radius: 25%;
+    background-color: transparent;
+
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+}
+
+/*
+Die Farbauswahl der jeweiligen Spieler als grid mit 4 zeilen um 4 SpielFarben auswählen zu können
+*/
+
+.color-picker-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+.color-picker-container-blind1{
+    grid-template-columns: 1fr 0 0 0;
+}
+.color-picker-container-blind2{
+    grid-template-columns: 0 0 0 1fr;
+}
+.color-picker{
+    height: 100%;
+    width: 100%;
+}
+
+/*
+beim hovern der farbauswahl reagiert das design entsprechen
+*/
+
+.color-picker:hover{
+    cursor: pointer;
+    transform: translateY(-20px);
+    filter: saturate(170%);
+    transition: all 1s ease-out;
+}
+
+/*
+die jeweiligen farben der farbauswahl
+*/
+
+.color1{
+    background-color:#e63946;
+}
+.color2{
+    background-color:#ee6c4d;
+}
+.color3{
+    background-color:#ffd60a;
+}
+.color4{
+    background-color:#9d4edd;
+}
+.color5{
+    background-color:#80ed99;
+}
+.color6{
+    background-color:#3E61AC;
+}
+.color-random{
+    background-color:white;
+    animation: rainbow 8s linear infinite;
+}
+.color-random1{
+    border-top-left-radius: 35px;
+}
+.color-random2{
+    border-top-right-radius: 35px;
+}
+
+/*
+__________________________________________________________________________________DARK MODE SWITCH______________________________________________________________________________
+*/
+
+.dark-mode-switch{
+    background-color: var(--background-color);
+    position: relative;
+}
+
+/*
+beim hovern des dark-mode-switchs  farben ändern
+*/
+
+.dark-mode-switch:hover{
+    cursor: pointer;
+    filter: invert(100%);
+    transition: all 1.8s;
+}
+
+/*
+Design des Mondes und der Sonne beim dark-light-mode
+*/
+
+.moon {
+    width: 40%;
+    height: auto;
+    display: none;
+    position: absolute;
+    top: calc(50% - 2.3rem);
+    left: 29%;
+}
+.sun{
+    width: 40%;
+    height: auto;
+    display: none;
+    position: absolute;
+    top: calc(50% - 2.3rem);
+    left: 29%;
+}
+
+/*
+________________________________________________________________________________WIN COUNTER_____________________________________________________________________________
+*/
+
+.win-counter{
+    display: none;
+    position: fixed;
+    background-color:var(--background-color);
+    width: 10rem;
+    height: 10rem;
+    top: 47.5%;
+    border-radius: 50%;
+    text-align: center;
+}
+
+/*
+Text des Win counters
+*/
+
+.win-counter h1 , .win-counter p{
+    color: var(--background-color);
+    filter: invert(100%);
+}
+.win-counter h1{
+    margin-top: 1.8rem;
+    font-size: 5rem;
+}
+.win-counter p{
+    opacity: 60%;
+}
+
+/*
+Position der beiden win counters
+*/
+
+.win-counter-p1{
+    left: calc((100% - 57.5rem)/2 - 15%);
+}
+.win-counter-p2{
+    right: calc((100% - 57.5rem)/2 - 15%);
+}
+
+/*
+_____________________________________________________________________________WIN MESSAGE____________________________________________________________________________________
+*/
+
+.win-message{
+    display:none;
+    position: fixed;
+    z-index: 10; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden; 
+    background-color: var(--background-color); 
+    opacity: 80%;
+}
+
+/*
+Design des Textes der win message
+*/
+
+.win-message h1{
+    margin-top: 20rem;
+    text-align: center;
+    font-size: 140px;
+    font-weight: 600;
+    background-image: repeating-conic-gradient(#553c9a 0%, #553c9a 10%, #ee4b2b 10%, #ee4b2b 20%, 
+    #00c2cb 20%, #00c2cb 30%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+.win-message p{
+    text-align: center;
+    font-size: 60px;
+    color: #aaaaaa;
+}
+
+/*
+___________________________________________________________________________LOADER WIN MESSAGE____________________________________________________________________________
+*/
+
+/*
+1er Balken des ladekreises in der win animation
+*/
+
+.loader {
+    display:inherit;
+    animation:spin 6s infinite linear;
+    border:solid 20vmin transparent;
+    border-radius:50%;
+    border-right-color:#09f;
+    border-top-color:#09f;
+    box-sizing:border-box;
+    height:200vmin;
+    left:calc(50% - 100vmin);
+    position:fixed;
+    top:calc(50% - 100vmin);
+    width:200vmin;
+    
+  }
+
+  /*
+2er Balken des ladekreises in der win animation
+*/
+  .loader:before {
+    animation:spin 5s infinite linear;
+    border:solid 20vmin transparent;
+    border-radius:50%;
+    border-right-color:#3cf;
+    border-top-color:#3cf;
+    box-sizing:border-box;
+    content:"";
+    height:160vmin;
+    left:0;
+    position:absolute;
+    top:0;
+    width:160vmin;
+  }
+
+  /*
+3er Balken des ladekreises in der win animation
+*/
+  .loader:after {
+    animation:spin 8s infinite linear;
+    border:solid 20vmin transparent;
+    border-radius:50%;
+    border-right-color:#6ff;
+    border-top-color:#6ff;
+    box-sizing:border-box;
+    content:"";
+    height:120vmin;
+    left:20vmin;
+    position:absolute;
+    top:20vmin;
+    width:120vmin;
+  }
+
+/*
+___________________________________________________________________________SPINNER BOX WIN MESSAGE____________________________________________________________________________
+*/
+
+  /*
+  container der die beiden Boxes in sich hat
+  */
+
+  .spinner-box{
+    display: inherit;
+    height:200vmin;
+    position:fixed;
+    top:12vmin;
+    width:200vmin;
+    opacity: 60%;
+    left: 46%;
+    margin-left: -250px;
+  }
+
+  /*
+  Orangene Box die sich dreht
+  */
+
+  .configure-border-1 {
+    width: 70vmin;
+    height: 70vmin;
+    padding: 3px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: configure-clockwise 3s ease-in-out 0s infinite alternate;
+    border: 7px solid #ee4b2b;
+  }
+
+  /*
+  blaue Box die sich dreht
+  */
+  
+  .configure-border-2 {
+    width: 70vmin;
+    height: 70vmin;
+    padding: 3px;
+    left: -70vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(45deg);
+    animation: configure-xclockwise 3s ease-in-out 0s infinite alternate;
+    border: 7px solid #3E61AC;
+  }
+  
+  
+  #mute-button{
+    float: left;
+    text-align: center;
+  }
+  .mute-bg > *{
+    background-color: var(--secondary-color);
+  }
+  
